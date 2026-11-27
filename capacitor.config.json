@@ -1,0 +1,9 @@
+{
+  "appId": "de.fabsi89.crushcore",
+  "appName": "CRUSHCORE MOBILE",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": false
+  }
+  
+}
