@@ -1,0 +1,29 @@
+name: Build CRUSHCORE Android APK
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm install
+      - name: Create Android project
+        run: npx cap add android
+      - name: Sync web app
+        run: npx cap sync android
+      - name: Build APK
+        run: cd android && ./gradlew assembleDebug
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CRUSHCORE-MOBILE-APK
+          path: android/app/build/outputs/apk/debug/app-debug.apk
